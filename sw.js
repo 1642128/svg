@@ -1,7 +1,7 @@
-importScripts('./runtime/scramjet/scramjet.all.js')
+importScripts('./y5j56/7qc31.js')
 
-const { ScramjetServiceWorker } = $scramjetLoadWorker()
-const scramjet = new ScramjetServiceWorker()
+const { _8na9d0 } = _c4wfg3()
+const proxySw = new _8na9d0()
 
 self.addEventListener('install', () => {
   void self.skipWaiting()
@@ -24,11 +24,11 @@ const OPEN_TAB_INJECT_SCRIPT = `
     }
   };
 
-  const decodeScramjetUrl=(href)=>{
+  const decodeEmbedUrl=(href)=>{
     if(!href) return href;
     try{
       const current=new URL(href, window.location.href);
-      const marker='/scram/';
+      const marker='/b7q6r/';
       let candidate=current.href;
       for(let i=0;i<8;i+=1){
         const parsed=new URL(candidate, window.location.href);
@@ -52,7 +52,7 @@ const OPEN_TAB_INJECT_SCRIPT = `
   const normalizeTargetUrl=(rawUrl)=>{
     try{
       const resolved=new URL(rawUrl, window.location.href).href;
-      const decoded=decodeScramjetUrl(resolved) || resolved;
+      const decoded=decodeEmbedUrl(resolved) || resolved;
       return isHttpLikeUrl(decoded) ? decoded : null;
     }catch(e){
       return null;
@@ -200,9 +200,9 @@ async function injectProxyEnhancements(response) {
 }
 
 async function handleRequest(event) {
-  await scramjet.loadConfig()
+  await proxySw.loadConfig()
 
-  if (!scramjet.route(event)) {
+  if (!proxySw.route(event)) {
     try {
       return await fetch(event.request)
     } catch {
@@ -210,7 +210,7 @@ async function handleRequest(event) {
     }
   }
 
-  const response = await scramjet.fetch(event)
+  const response = await proxySw.fetch(event)
   return injectProxyEnhancements(response)
 }
 
